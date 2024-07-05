@@ -1,5 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <servlet>
+        <servlet-name>QuizHandleController</servlet-name>
+        <servlet-class>controller.QuizHandleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveAnswerController</servlet-name>
+        <servlet-class>controller.SaveAnswerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PeekAnswerController</servlet-name>
+        <servlet-class>controller.PeekAnswerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReviewProgressController</servlet-name>
+        <servlet-class>controller.ReviewProgressController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FilterQuestionsController</servlet-name>
+        <servlet-class>controller.FilterQuestionsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarkForReview</servlet-name>
+        <servlet-class>controller.MarkForReview</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LessonServlet</servlet-name>
+        <servlet-class>controller.LessonServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>QuizHandleController</servlet-name>
+        <url-pattern>/QuizHandle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveAnswerController</servlet-name>
+        <url-pattern>/SaveAnswer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PeekAnswerController</servlet-name>
+        <url-pattern>/PeekAnswer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReviewProgressController</servlet-name>
+        <url-pattern>/ReviewProgress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterQuestionsController</servlet-name>
+        <url-pattern>/FilterQuestions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarkForReview</servlet-name>
+        <url-pattern>/MarkForReview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LessonServlet</servlet-name>
+        <url-pattern>/lessonServlet</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>

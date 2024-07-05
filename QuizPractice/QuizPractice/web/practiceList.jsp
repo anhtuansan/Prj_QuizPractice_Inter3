@@ -1,160 +1,151 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>App</title>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
 
-        <!-- font awesome cdn link  -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 
-        <!-- custom css file link  -->
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/popup.css">
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/popup.css">
 
-        <!-- Bootstrap file link  -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Bootstrap file link  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-        <!-- Custom CSS to make the footer fixed -->
-        <style>
-            body {
-                padding: 0;
-                margin: 0;
-            }
-            .footer {
-                background: #f8f9fa;
-                text-align: center;
-                position: fixed;
-                bottom: 0;
-                width: 100%;
-                height: 15%;
-            }
-            #topTable {
-                margin-bottom: 0.5%;
-            }
-            .practiceList {
-                margin-bottom: 10%;
-            }
-            nav {
-                margin-top: -25px;
-            }
-        </style>
+    <!-- Custom CSS to make the footer fixed -->
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        .practiceList {
+            margin-bottom: 10%;
+        }
+        nav {
+            margin-top: -25px;
+        }
+    </style>
 
+    <script>
+        $(document).ready(function () {
+            var allSubjects = ${listSubject};
 
-        <!-- JavaScript to submit form on combobox change -->
-        <script>
-            $(document).ready(function () {
-                $('#subjectSelect').change(function () {
-                    $('#subjectForm').submit();
-                });
+            $('#dimension').change(function () {
+                var dimension = $(this).val();
+                if (dimension) {
+                    $.ajax({
+                        url: 'subjectServlet', // Servlet to get subjects by dimension
+                        type: 'GET',
+                        data: {dimension: dimension},
+                        success: function (data) {
+                            $('#subject').empty().append('<option selected disabled>Choose Subject</option>');
+                            data.forEach(function (subject) {
+                                $('#subject').append('<option value="' + subject.id + '">' + subject.name + '</option>');
+                            });
+                        }
+                    });
+                }
             });
-        </script>
 
+            // Display the initial list of subjects
+            $('#subject').empty().append('<option selected disabled>Choose Subject</option>');
+            allSubjects.forEach(function (subject) {
+                $('#subject').append('<option value="' + subject.id + '">' + subject.name + '</option>');
+            });
+        });
 
-    </head>
+        $(document).ready(function () {
+            $('#subject').change(function () {
+                var selectedSubjectId = $(this).val();
+                if (selectedSubjectId) {
+                    $.ajax({
+                        url: 'lessonServlet', // ???ng d?n t?i servlet ho?c endpoint x? lý yêu c?u
+                        type: 'GET',
+                        data: {subjectId: selectedSubjectId},
+                        success: function (data) {
+                            $('#lesson').empty().append('<option selected disabled>Choose Lesson</option>');
+                            $('#lesson').append('<option value="All">All</option>');
+                            data.forEach(function (lesson) {
+                                $('#lesson').append('<option value="' + lesson.name + '">' + lesson.name + '</option>');
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 
-    <body>
-        <%@include file="/layout/header.jsp"%>
+</head>
 
-        <section class="practiceList">
-            <h1 class="heading text-center">Practice List</h1>
+<body>
+    <%@include file="/layout/header.jsp"%>
 
-            <div id="topTable" class="container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <form id="subjectForm" method="post" action="practiceList">
-                            <select id="subjectSelect" name="subject" class="form-control">
-                                <option selected disabled>Choose Subject</option>
-                                <c:forEach var="subject" items="${subjects}">
-                                    <option value="${subject.toLowerCase()}">${subject}</option>
-                                </c:forEach>
-                            </select>
-                        </form>
-                    </div>
-                    <div class="col-md-5"></div>
-                    <div class="col-md-2">
-                        <a href="/QuizPractice/newPractice" class="btn btn-primary">New Practice</a>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-primary">Simulation Exam</button>
-                    </div>
-                </div>
-            </div>
+    <section class="practiceList">
+        <h1 class="heading text-center">New Practice</h1>
 
-            <div class="container">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Subject Name</th>
-                            <th>Date Taken</th>
-                            <th>Question</th>
-                            <th>Correct (%)</th>
-                            <th>Duration</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Assume that 'practices' is a list of practice objects passed from the back-end -->
-                        <c:forEach var="practice" items="${practices}">
-                            <tr>
-                                <td>${practice.subjectName}</td>
-                                <td>${practice.dateTaken}</td>
-                                <td>${practice.numberQuestion}</td>
-                                <td>${practice.numberCorrect/practice.numberQuestion*100}%</td>
-                                <td>${practice.duration}:00</td>
-                                <td><a href="#">View Detail</a></td>
-                            </tr>
+        <div class="container">
+            <form action="newPractice" method="post">
+                <div class="form-group">
+                    <label for="dimension">Dimension:</label>
+                    <select id="dimension" name="dimension" class="form-control">
+                        <option selected disabled>Choose Dimension</option>
+                        <c:forEach var="dimension" items="${listDimension}">
+                            <option value="${dimension.id}">${dimension.name}</option>
                         </c:forEach>
-                    </tbody>
-                </table>
+                    </select>
+                </div>
 
-                <!-- Pagination -->
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <c:choose>
-                            <c:when test="${currentPage > 1}">
-                                <li>
-                                    <a href="practiceList?page=${currentPage - 1}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                            </c:when>
-                        </c:choose>
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <select id="subject" name="subjectId" class="form-control">
+                        <option selected disabled>Choose Subject</option>
+                        <c:forEach var="subject" items="${listSubject}">
+                            <option value="${subject.id}">${subject.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
 
-                        <c:forEach var="i" begin="1" end="${totalPages}">
-                            <c:choose>
-                                <c:when test="${i == currentPage}">
-                                    <li class="active"><a href="#">${i}</a></li>
-                                    </c:when>
-                                    <c:otherwise>
-                                    <li><a href="practiceList?page=${i}">${i}</a></li>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
+                <div class="form-group">
+                    <label for="questions">Number of Questions:</label>
+                    <input type="number" id="questions" name="questions" class="form-control" placeholder="Enter number of questions">
+                </div>
 
-                        <c:choose>
-                            <c:when test="${currentPage < totalPages}">
-                                <li>
-                                    <a href="practiceList?page=${currentPage + 1}" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </c:when>
-                        </c:choose>
-                    </ul>
-                </nav>
-            </div>
-        </section>
-        <br/>
+                <div class="form-group">
+                    <label for="lesson">Lesson:</label>
+                    <select id="lesson" name="lessonName" class="form-control">
+                        <option selected disabled>Choose lesson</option>
+                    </select>
+                </div>
 
-        <%@include file="/layout/footer.jsp" %>
+                <div class="form-group">
+                    <label for="duration">Duration:</label>
+                    <select id="duration" name="duration" class="form-control">
+                        <option selected disabled>Choose Duration</option>
+                        <option value="5">5 minutes</option>
+                        <option value="15">15 minutes</option>
+                        <option value="30">30 minutes</option>
+                        <option value="45">45 minutes</option>
+                        <option value="60">1 hour</option>
+                        <option value="90">1 hour 30 minutes</option>
+                        <option value="120">2 hours</option>
+                    </select>
+                </div>
 
-        <!-- side bar cÃ³ thá»ƒ thu nhá» khi mÃ n hÃ¬nh nhá»  -->
-        <script src="js/script.js"></script>
-    </body>
+                <button type="submit" class="btn btn-primary">Start Practice</button>
+            </form>
+        </div>
+    </section>
+    <br/>
+
+    <%@include file="/layout/footer.jsp" %>
+
+    <!-- side bar có th? thu nh? khi màn hình nh?  -->
+    <script src="js/script.js"></script>
+</body>
 </html>
