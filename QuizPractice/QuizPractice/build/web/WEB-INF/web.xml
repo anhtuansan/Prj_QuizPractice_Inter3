@@ -28,6 +28,10 @@
         <servlet-name>LessonServlet</servlet-name>
         <servlet-class>controller.LessonServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuizReviewController</servlet-name>
+        <servlet-class>controller.QuizReviewController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>QuizHandleController</servlet-name>
         <url-pattern>/QuizHandle</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>LessonServlet</servlet-name>
         <url-pattern>/lessonServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizReviewController</servlet-name>
+        <url-pattern>/QuizReview</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

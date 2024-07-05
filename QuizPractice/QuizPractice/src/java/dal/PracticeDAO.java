@@ -11,6 +11,7 @@ import java.util.List;
 import context.DBContext;
 import dto.PracticeListDTO;
 import dto.QuestionDTO;
+import java.util.HashMap;
 import java.util.Map;
 import model.Answer;
 import model.Practice;
@@ -537,6 +538,19 @@ public class PracticeDAO extends DBContext {
         ps.setInt(2, questionId);
         ps.executeUpdate();
 
+    }
+
+    public Map<Integer, Integer> getUserAnswers(int practiceId) throws SQLException {
+        Map<Integer, Integer> userAnswers = new HashMap<>();
+        String query = "SELECT QuestionId, YourAnswer FROM Practice_Question WHERE PracticeId = ?";
+        ps = connection.prepareStatement(query);
+        ps.setInt(1, practiceId);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            userAnswers.put(rs.getInt("QuestionId"), rs.getInt("YourAnswer"));
+        }
+
+        return userAnswers;
     }
 
     public static void main(String[] args) {

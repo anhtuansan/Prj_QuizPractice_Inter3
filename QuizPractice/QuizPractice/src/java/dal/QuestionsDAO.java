@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import context.DBContext;
+import dto.QuestionReviewDTO;
 
 public class QuestionsDAO extends DBContext {
 
@@ -57,7 +58,7 @@ public class QuestionsDAO extends DBContext {
                     rs.getInt("id"),
                     rs.getString("answer_detail"),
                     rs.getTimestamp("created_at"),
-                    rs.getTimestamp("updated_at"),
+                    rs.getTimestamp("update_at"),
                     rs.getInt("creator_id"),
                     rs.getBoolean("is_correct")
             );
@@ -124,6 +125,81 @@ public class QuestionsDAO extends DBContext {
                 }
                 return questions;
             }
+        }
+    }
+    
+    
+    
+     public List<QuestionReviewDTO> getQuestionsForReview(int practiceId) throws SQLException {
+        List<QuestionReviewDTO> questions = new ArrayList<>();
+
+        String query = "SELECT q.id, q.detail, q.Suggestion, q.Status, q.Media, pq.YourAnswer FROM questions q "
+                     + "RIGHT JOIN practice_question pq ON q.id = pq.QuestionId "
+                     + "WHERE pq.PracticeId = ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setInt(1, practiceId);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int questionId = rs.getInt("id");
+            String detail = rs.getString("detail");
+            String suggestion = rs.getString("suggestion");
+            String status = rs.getString("status");
+            String media = rs.getString("media");
+            int yourAnswer = rs.getInt("YourAnswer");
+
+            List<Answer> answers = getAnswersByQuestionId(questionId);
+
+            QuestionReviewDTO questionDTO = new QuestionReviewDTO(questionId, detail, suggestion, status, media, yourAnswer, answers);
+            questions.add(questionDTO);
+        }
+
+        return questions;
+    }
+
+//    public List<Answer> getAnswersByQuestionId(int questionId) throws SQLException {
+//        List<Answer> answers = new ArrayList<>();
+//        String query = "SELECT * FROM answers WHERE QuestionId = ?";
+//        PreparedStatement ps = connection.prepareStatement(query);
+//        ps.setInt(1, questionId);
+//        ResultSet rs = ps.executeQuery();
+//
+//        while (rs.next()) {
+//            Answer answer = new Answer(
+//                    rs.getInt("id"),
+//                    rs.getString("answerDetail"),
+//                    rs.getTimestamp("createdAt"),
+//                    rs.getTimestamp("updatedAt"),
+//                    rs.getInt("creatorId"),
+//                    rs.getBoolean("isCorrect")
+//            );
+//            answers.add(answer);
+//        }
+//
+//        return answers;
+//    }
+     
+     
+     
+      public static void main(String[] args) {
+        QuestionsDAO questionDAO = QuestionsDAO.getInstance();
+        
+        try {
+            int practiceId = 1002; // Example practiceId
+            List<QuestionReviewDTO> questions = questionDAO.getQuestionsForReview(practiceId);
+
+            for (QuestionReviewDTO question : questions) {
+                System.out.println("Question ID: " + question.getId());
+                System.out.println("Question Detail: " + question.getDetail());
+                System.out.println("Your Answer: " + question.getYourAnswer());
+                System.out.println("Answers: ");
+                question.getAnswers().forEach(answer -> 
+                    System.out.println(" - " + answer.getAnswerDetail() + (answer.isCorrect() ? " (Correct)" : ""))
+                );
+                System.out.println("---------------------------"+ questions.size());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

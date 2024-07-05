@@ -65,13 +65,23 @@ public class QuizHandleController extends HttpServlet {
             long currentTime = System.currentTimeMillis();
             long elapsedTime = (currentTime - startTime) / 1000;
             int remainingTime = (int) (practice.getDuration() * 60 - elapsedTime);
-
-            if (remainingTime <= 0) {
+            
+             if (remainingTime <= 0) {
                 // Submit answers if time is up
                 submitAnswers(session, practiceId);
-                response.sendRedirect("/QuizPractice");
+                response.sendRedirect("QuizReview?practiceId=" + practiceId + "&finished=true");
                 return;
             }
+
+            // Check if the current time + duration is greater than createdAt + duration
+            long endTime = practice.getCreatedAt().getTime() + (practice.getDuration() * 60 * 1000);
+            if (currentTime >= endTime) {
+                // Redirect to review page with a popup
+                response.sendRedirect("QuizReview?practiceId=" + practiceId + "&finished=true");
+                return;
+            }
+
+           
 
             // Get current question and selected answer from session
             Map<Integer, Integer> userAnswers = (Map<Integer, Integer>) session.getAttribute("userAnswers");
