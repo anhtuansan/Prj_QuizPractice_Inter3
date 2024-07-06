@@ -32,6 +32,34 @@
         <servlet-name>QuizReviewController</servlet-name>
         <servlet-class>controller.QuizReviewController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddQuizController</servlet-name>
+        <servlet-class>controller.AddQuizController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetLessonsServlet</servlet-name>
+        <servlet-class>controller.GetLessonsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteQuestionFromQuizServlet</servlet-name>
+        <servlet-class>controller.DeleteQuestionFromQuizServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddQuestionToQuizServlet</servlet-name>
+        <servlet-class>controller.AddQuestionToQuizServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddQuestionServlet</servlet-name>
+        <servlet-class>controller.AddQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddAnswerToQuestionServlet</servlet-name>
+        <servlet-class>controller.AddAnswerToQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddAnswerServlet</servlet-name>
+        <servlet-class>controller.AddAnswerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>QuizHandleController</servlet-name>
         <url-pattern>/QuizHandle</url-pattern>
@@ -63,6 +91,34 @@
     <servlet-mapping>
         <servlet-name>QuizReviewController</servlet-name>
         <url-pattern>/QuizReview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddQuizController</servlet-name>
+        <url-pattern>/AddQuiz</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetLessonsServlet</servlet-name>
+        <url-pattern>/GetLessonsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteQuestionFromQuizServlet</servlet-name>
+        <url-pattern>/DeleteQuestionFromQuizServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddQuestionToQuizServlet</servlet-name>
+        <url-pattern>/AddQuestionToQuiz</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddQuestionServlet</servlet-name>
+        <url-pattern>/AddQuestionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAnswerToQuestionServlet</servlet-name>
+        <url-pattern>/AddAnswerToQuestionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAnswerServlet</servlet-name>
+        <url-pattern>/AddAnswerServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

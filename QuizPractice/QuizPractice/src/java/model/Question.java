@@ -54,4 +54,9 @@ public class Question {
     public void setMedia(String media) {
         this.media = media;
     }
+
+    @Override
+    public String toString() {
+        return "Question{" + "id=" + id + ", detail=" + detail + ", suggestion=" + suggestion + ", status=" + status + ", media=" + media + '}';
+    }
 }

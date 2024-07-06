@@ -299,11 +299,11 @@
                                             }
                                         });
                                     }
-//                                    $(document).ready(function () {
-//           
-//                                        $('#finishedModal').modal('show');
-//           
-//                                    });
+                                    $(document).ready(function () {
+                                        if(${finished} === true)
+                                        $('#finishedModal').modal('show');
+           
+                                    });
         </script>
     </body>
 </html>
