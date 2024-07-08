@@ -5,9 +5,9 @@
         <form id="login-form" action="login" method="post">
             <h3>login now</h3>
             <p>Your email <span>*</span></p>
-            <input id="email" type="email" name="email" placeholder="enter your email" required maxlength="50" class="box" value="tuan@gmail.com">
+            <input id="email" type="email" name="email" placeholder="enter your email" required maxlength="50" class="box" value="tuanvahe140809@fpt.edu.vn">
             <p>Your password <span>*</span></p>
-            <input id="passowrd" type="password" name="password" placeholder="enter your password" required maxlength="50" class="box" value="123!456^^yY">
+            <input id="passowrd" type="password" name="password" placeholder="enter your password" required maxlength="50" class="box" value="123!456!789^^tT">
             <div class="danger_msg"></div>
             <a id="forget_password" href="reset-password">Forget Password?</a>
             <input type="submit" value="login now" name="submit" class="option-btn">

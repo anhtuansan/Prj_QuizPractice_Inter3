@@ -2,20 +2,196 @@
 
 
 
+-----------------------16
+
+select * from lessons
+select * from subjects
+select * from Quizs;
+select * from users;
+select * from questions;
+select * from answers;
+select * from Practice_Question
+
+CREATE TABLE Student_Take_Quiz (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    QuizId INT FOREIGN KEY REFERENCES Quizs(Id),
+    UserId INT FOREIGN KEY REFERENCES users(Id),
+    Status NVARCHAR(10) CHECK (Status IN ('done', 'pending')),
+    NumberCorrect INT
+);
+drop table Student_Take_Quiz
+
+select * from subject_has_lesson
+select * from Student_Take_Quiz
+select * from Quizs;
+select * from Quiz_Has_Question
+select * from lessons;
+select * from users;
+insert into Student_Take_Quiz values(22,27,'done',1);
+	insert into Student_Take_Quiz values(16,27,'done',1);
+
+	update Quiz_Has_Question set QuestionId = 4 where id = 9
+
+CREATE TABLE Student_Quiz_Question (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    StudentQuizId INT FOREIGN KEY REFERENCES Student_Take_Quiz(Id),
+    QuestionId INT FOREIGN KEY REFERENCES questions(id),
+    YourAnswer INT FOREIGN KEY REFERENCES answers(id),
+	IsMarked INT
+);
+drop table Student_Quiz_Question
+
+select * from Student_Quiz_Question;
+insert into Student_Quiz_Question values(1, 22, 1018, 1);
+
+insert into Student_Quiz_Question values(2, 10, 1018, 1);
+insert into Student_Quiz_Question values(2, 11, 1018, 1);
+update Student_Quiz_Question set QuestionId = 23 where Id = 3;
+update Student_Quiz_Question set QuestionId = 3 , YourAnswer = 1003 where Id = 4;
+update Student_Quiz_Question set QuestionId = 4 , YourAnswer = 1007 where Id = 5;
+
+select * from questions;
+select * from question_has_answer;
+select * from answers
+
+update question_has_answer set  question_id =  where answer_id = 1018 
 
 
--------------16
+
+update answers set is_correct = 0 where id = 1019
+
+
+
+
+
+
+
+
+
+
+-------------------------34
+--add
+-- Thêm các cột mới vào bảng Quizs
+ALTER TABLE Quizs
+ADD SubjectId INT,
+    LessonId INT,
+    DeleteFlag INT;
+
+
+ALTER TABLE Quizs
+ADD CONSTRAINT FK_Quizs_Subjects
+FOREIGN KEY (SubjectId)
+REFERENCES Subjects(Id);
+
+-- Đặt khóa ngoại cho LessonId
+ALTER TABLE Quizs
+ADD CONSTRAINT FK_Quizs_Lessons
+FOREIGN KEY (LessonId)
+REFERENCES Lessons(Id);
+
+update lessons set Type= 'quiz' where id = 2007;
+
+
+-- Thêm cột QuizId vào bảng Lessons
+ALTER TABLE lessons
+ADD QuizId INT;
+-- Đặt khóa ngoại cho QuizId liên kết với bảng Quizs
+ALTER TABLE Lessons
+ADD CONSTRAINT FK_Lessons_Quizs
+FOREIGN KEY (QuizId)
+REFERENCES Quizs(Id);
+
+
+
+
+--
+select * from Quizs
+insert into Quizs values('Quiz dau ki', 'Medium', 5, 30, null,GETDATE(),1028,null,null,2,2007,1);
+
+select * from lessons;
+update lessons set QuizId = 1 where id = 2007;
+
+select * from questions
+insert into questions values('3+3 bang may','1 ban tay', 1 ,null);
+
+select * from answers;
+insert into answers values('bang 1',GETDATE(),null,1028,0);
+select * from question_has_answer;
+insert into question_has_answer values(5,1010);
+insert into answers values('bang 6',GETDATE(),null,1028,1);
+insert into question_has_answer values(5,1011);
+insert into answers values('bang 3',GETDATE(),null,1028,0);
+insert into question_has_answer values(5,1012);
+insert into answers values('bang 0',GETDATE(),null,1028,0);
+insert into question_has_answer values(5,1013);
+
+insert into Quiz_Has_Question values(1,5)
+
+
+select * from Quizs;
+select * from users;
+select * from subjects;
+select * from subject_has_lesson;
+select * from lessons;
+select * from questions;
+select * from Quiz_Has_Question;
+select * from answers;
+select * from question_has_answer;
+select * from Lesson_Has_Question;
+--truong hop search question
+select * from questions;
+--cho question moi vao thi phai them vao suject, lesson tuong ung
+--lay tat ca question theo lessonId
+select * from questions where id in (select QuestionId from Lesson_Has_Question where LessonId = 1)
+--sau khi chon lay quesion id cho vao quizhas question
+insert into Quiz_Has_Question values(14,5)
+
+--xoa question khoi quiz
+delete from Quiz_Has_Question where QuizId = 1 and QuestionId = 5
+
+--lay subject theo userId 
+select id, name from subjects where creator_id = 1028;
+
+--lay lesson theo subject va chi lay lesson la quiz
+select * from lessons;
+select * from subject_has_lesson;
+
+select id, name from lessons where id in (select lesson_id from subject_has_lesson where subject_id = 2)
+and Type = 'quiz';  
+
+select * from questions where id in (select QuestionId from Quiz_Has_Question where QuizId = 7)
+
+
+
+
+
+
+
+
+
+-------------17,18
 select * from answers;
 insert into answers values('Gà.....',GETDATE(),null, 1028,0);
 insert into answers values('Chó.....',GETDATE(),null, 1028,1);
 insert into answers values('Mèo.....',GETDATE(),null, 1028,0);
 insert into answers values('Lợn.....',GETDATE(),null, 1028,0);
 
+insert into answers values('Paris.....',GETDATE(),null, 1028,0);
+insert into answers values('London.....',GETDATE(),null, 1028,1);
+insert into answers values('Beclin.....',GETDATE(),null, 1028,0);
+insert into answers values('Bangkok.....',GETDATE(),null, 1028,0);
+
+
+insert into answers values('1.....',GETDATE(),null, 1028,0);
+insert into answers values('2.....',GETDATE(),null, 1028,1);
+insert into answers values('3.....',GETDATE(),null, 1028,0);
+insert into answers values('9.....',GETDATE(),null, 1028,0);
+
 select * from users;
 select * from questions;
 insert into questions values('Con gi keu gau gau','4 chan', 1, null);
-
-
+insert into questions values('Thu do cua phap la gi','Mbape', 1, null);
+insert into questions values('1+2 bang may','bo cua ban', 1, null);
 select * from question_has_answer;
 insert into question_has_answer values(1,1)
 go
@@ -25,18 +201,60 @@ insert into question_has_answer values(1,3)
 go
 insert into question_has_answer values(1,4)
 
+insert into question_has_answer values(3,1002)
+go
+insert into question_has_answer values(3,1003)
+go
+insert into question_has_answer values(3,1004)
+go
+insert into question_has_answer values(3,1005)
+go
+insert into question_has_answer values(4,1006)
+go
+insert into question_has_answer values(4,1007)
+go
+insert into question_has_answer values(4,1008)
+go
+insert into question_has_answer values(4,1009)
+
+
+select * from subjects;
+select * from Practices;
+select * from lessons;
+select * from Lesson_Has_Question;
+insert into Lesson_Has_Question values(1, 1);
+insert into Lesson_Has_Question values(1, 3);
+insert into Lesson_Has_Question values(1, 4);
 
 select * from Practices;
-insert into Lesson_Has_Question values(1, 1);
+select * from users;
+insert into Practices values(27, 6, 'All', 1 ,GETDATE(),null, 5);
+update Practices set NumberQuestion = 3 where id = 1002;
+
+select * from Practice_Question;
+insert into Practice_Question values(1002, 1, null);
+delete from Practice_Question where Id = 2
+insert into Practice_Question values(1002, 3, null);
+insert into Practice_Question values(1002, 4, null);
+
+update Practices set CreatedAt = GETDATE() where Id = 1002;
+update Practices set Duration = 30 where Id = 1002;
+
+ALTER TABLE Practice_Question
+ADD IsMarked bit DEFAULT 0;
 
 
 
 
 
+ SELECT q.id, q.detail, q.suggestion, q.status, q.media, pq.YourAnswer
+    FROM questions q
+     JOIN practice_question pq ON q.id = pq.QuestionId
+    WHERE pq.PracticeId = 1002;
 
+	select * from question_has_answer;
 
-
-
+	select * from Dimension;
 
 
 

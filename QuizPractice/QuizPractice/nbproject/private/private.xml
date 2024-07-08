@@ -3,24 +3,91 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/model/Dimension.java</file>
-            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/courses.html</file>
-            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/active.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/MarkForReview.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/LessonController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dal/QuizDAO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/addQuestion.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/QuestionReviewDTO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/addAnswer.jsp</file>
             <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/model/Slider.java</file>
-            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/layout/searchMyRegister.jsp</file>
-            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/blogdetail.jsp</file>
-            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/model/Subject.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/DeleteQuestionFromQuizServlet.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/MyRegisterDTO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/AddQuestionServlet.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/myRegister.jsp</file>
             <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/about.html</file>
-            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/ActiveUserController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/NewSubjectController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/SubjectController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/GetLessonsServlet.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/AddQuestionToQuizServlet.java</file>
             <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/blogslist.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/QuizDoneDTO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/quizReview.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/practiceList.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/layout/header.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/quizDoneList.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/ReviewProgressController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/AnswerDTO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/QuizSubjectDTO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/model/QuestionStatus.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/courses.html</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/WEB-INF/web.xml</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/model/Subject.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/NewPracticeController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/PracticeListDTO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/QuizHandleController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/FilterQuestionsController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/quizDoneTable.jsp</file>
             <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/model/Role.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/SubjectManagerDTO.java</file>
             <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dal/SliderDAO.java</file>
             <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/model/Category.java</file>
             <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/model/Lesson.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/PeekAnswerController.java</file>
             <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/model/Blog.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/model/Question.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/SubjectDTO.java</file>
             <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/blogDetailManager.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/RegisterController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/SliderManagerController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/DimensionDTO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/SubjectPracticeDTO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/BlogManagerDetailDTO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/NewPasswordController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/active.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/playlist.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/layout/searchMyRegister.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/AddAnswerToQuestionServlet.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/SubjectDetailsController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dal/LessonDAO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/LoginDTO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/PracticeListController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dal/QuestionsDAO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/newSubject.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/QuizLessonDTO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dal/PracticeDAO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/QuestionDTO.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/LessonServlet.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/addQuiz.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/MyRegisterController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/model/Practice.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/model/Dimension.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/resetPassword.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/QuizReviewController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/lessonManager.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/SaveAnswerController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/blogdetail.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/quizHandle.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/model/Answer.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/newPractice.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/ActiveUserController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/layout/login.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/QuizDoneListController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/SubjectDetailExpertController.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/AddAnswerServlet.java</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/controller/AddQuizController.java</file>
             <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/context/DBContext.java</file>
             <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/web/404.jsp</file>
+            <file>file:/D:/CodeThue/Ki_8/SWP_Quiz/inter3/QuizPractice/QuizPractice/src/java/dto/ExpertDTO.java</file>
         </group>
     </open-files>
 </project-private>

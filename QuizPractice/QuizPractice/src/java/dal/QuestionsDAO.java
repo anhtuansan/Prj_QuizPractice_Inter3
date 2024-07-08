@@ -46,26 +46,26 @@ public class QuestionsDAO extends DBContext {
         return null;
     }
 
-    public List<Answer> getAnswersByQuestionId(int questionId) throws SQLException {
-        String query = "SELECT a.* FROM answers a JOIN question_has_answer qha ON a.id = qha.answer_id WHERE qha.question_id = ?";
-        ps = connection.prepareStatement(query);
-        ps.setInt(1, questionId);
-        rs = ps.executeQuery();
-
-        List<Answer> answers = new ArrayList<>();
-        while (rs.next()) {
-            Answer answer = new Answer(
-                    rs.getInt("id"),
-                    rs.getString("answer_detail"),
-                    rs.getTimestamp("created_at"),
-                    rs.getTimestamp("update_at"),
-                    rs.getInt("creator_id"),
-                    rs.getBoolean("is_correct")
-            );
-            answers.add(answer);
-        }
-        return answers;
-    }
+//    public List<Answer> getAnswersByQuestionId(int questionId) throws SQLException {
+//        String query = "SELECT a.* FROM answers a JOIN question_has_answer qha ON a.id = qha.answer_id WHERE qha.question_id = ?";
+//        ps = connection.prepareStatement(query);
+//        ps.setInt(1, questionId);
+//        rs = ps.executeQuery();
+//
+//        List<Answer> answers = new ArrayList<>();
+//        while (rs.next()) {
+//            Answer answer = new Answer(
+//                    rs.getInt("id"),
+//                    rs.getString("answer_detail"),
+//                    rs.getTimestamp("created_at"),
+//                    rs.getTimestamp("update_at"),
+//                    rs.getInt("creator_id"),
+//                    rs.getBoolean("is_correct")
+//            );
+//            answers.add(answer);
+//        }
+//        return answers;
+//    }
 
     public List<Question> getQuestionsByPracticeId(int practiceId) throws SQLException {
         String query = "SELECT q.* FROM questions q JOIN practice_question pq ON q.id = pq.question_id WHERE pq.practice_id = ?";
@@ -179,6 +179,82 @@ public class QuestionsDAO extends DBContext {
 //        return answers;
 //    }
      
+     
+        public List<QuestionReviewDTO> getQuestionsForReviewByPracticeId(int practiceId) throws SQLException {
+        List<QuestionReviewDTO> questions = new ArrayList<>();
+
+        String query = "SELECT q.id, q.detail, q.Suggestion, q.Status, q.Media, pq.YourAnswer FROM questions q "
+                     + "RIGHT JOIN practice_question pq ON q.id = pq.QuestionId "
+                     + "WHERE pq.PracticeId = ?";
+        ps = connection.prepareStatement(query);
+        ps.setInt(1, practiceId);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int questionId = rs.getInt("id");
+            String detail = rs.getString("detail");
+            String suggestion = rs.getString("Suggestion");
+            String status = rs.getString("Status");
+            String media = rs.getString("Media");
+            int yourAnswer = rs.getInt("YourAnswer");
+
+            List<Answer> answers = getAnswersByQuestionId(questionId);
+
+            QuestionReviewDTO questionDTO = new QuestionReviewDTO(questionId, detail, suggestion, status, media, yourAnswer, answers);
+            questions.add(questionDTO);
+        }
+
+        return questions;
+    }
+
+    public List<QuestionReviewDTO> getQuestionsForReviewByStudentTakeQuizId(int studentTakeQuizId) throws SQLException {
+        List<QuestionReviewDTO> questions = new ArrayList<>();
+
+        String query = "SELECT q.id, q.detail, q.Suggestion, q.Status, q.Media, sq.YourAnswer FROM questions q "
+                     + "RIGHT JOIN Student_Quiz_Question sq ON q.id = sq.QuestionId "
+                     + "WHERE sq.StudentQuizId = ?";
+        ps = connection.prepareStatement(query);
+        ps.setInt(1, studentTakeQuizId);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int questionId = rs.getInt("id");
+            String detail = rs.getString("detail");
+            String suggestion = rs.getString("Suggestion");
+            String status = rs.getString("Status");
+            String media = rs.getString("Media");
+            int yourAnswer = rs.getInt("YourAnswer");
+
+            List<Answer> answers = getAnswersByQuestionId(questionId);
+
+            QuestionReviewDTO questionDTO = new QuestionReviewDTO(questionId, detail, suggestion, status, media, yourAnswer, answers);
+            questions.add(questionDTO);
+        }
+
+        return questions;
+    }
+
+    public List<Answer> getAnswersByQuestionId(int questionId) throws SQLException {
+        List<Answer> answers = new ArrayList<>();
+        String query = "SELECT a.* FROM answers a JOIN question_has_answer qha ON a.id = qha.answer_id WHERE qha.question_id = ?";
+        ps = connection.prepareStatement(query);
+        ps.setInt(1, questionId);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Answer answer = new Answer(
+                    rs.getInt("id"),
+                    rs.getString("answer_detail"),
+                    rs.getTimestamp("created_at"),
+                    rs.getTimestamp("update_at"),
+                    rs.getInt("creator_id"),
+                    rs.getBoolean("is_correct")
+            );
+            answers.add(answer);
+        }
+        return answers;
+    }
+
      
      
       public static void main(String[] args) {

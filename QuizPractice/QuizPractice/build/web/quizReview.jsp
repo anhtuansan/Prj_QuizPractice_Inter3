@@ -5,19 +5,19 @@
         <meta charset="UTF-8">
         <title>Quiz Review</title>
 
-        <!-- font awesome cdn link -->
+         font awesome cdn link 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 
-        <!-- custom css file link -->
+         custom css file link 
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/popup.css">
 
-        <!-- Bootstrap file link -->
+         Bootstrap file link 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-        <!-- Custom CSS to make the footer fixed -->
+         Custom CSS to make the footer fixed 
         <style>
             body {
                 padding: 0;
@@ -166,8 +166,8 @@
         </form>
 
         <%@ include file="/layout/footer.jsp" %>
-
-        <!-- Review Progress Modal -->
+        
+         Review Progress Modal 
         <div class="modal fade" id="reviewProgressModal" tabindex="-1" role="dialog" aria-labelledby="reviewProgressModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -187,13 +187,13 @@
                         </div>
                         <hr>
                         <div id="questionsList">
-                            <!-- Danh sách câu h?i s? ???c c?p nh?t t?i ?ây -->
+                             Danh sách câu h?i s? ???c c?p nh?t t?i ?ây 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Peek Answer Modal -->
+         Peek Answer Modal 
         <div class="modal fade" id="peekAnswerModal" tabindex="-1" role="dialog" aria-labelledby="peekAnswerModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -214,7 +214,7 @@
             </div>
         </div>
 
-        <!-- side bar có th? thu nh? khi màn hình nh? -->
+         side bar có th? thu nh? khi màn hình nh? 
         <script src="js/script.js"></script>
         <script>
                                     function navigateQuestion(practiceId, questionNumber, action) {
@@ -299,11 +299,10 @@
                                             }
                                         });
                                     }
-                                    $(document).ready(function () {
-                                        if(${finished} === true)
-                                        $('#finishedModal').modal('show');
-           
-                                    });
+
         </script>
     </body>
 </html>
+        
+        
+ 

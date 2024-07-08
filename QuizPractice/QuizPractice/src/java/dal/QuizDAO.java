@@ -2,6 +2,7 @@ package dal;
 
 import context.DBContext;
 import dto.AnswerDTO;
+import dto.QuizDoneDTO;
 import dto.QuizLessonDTO;
 import dto.QuizSubjectDTO;
 import java.sql.SQLException;
@@ -185,8 +186,8 @@ public class QuizDAO extends DBContext {
 
         return questions;
     }
-    
-      public List<Question> getSearchQuestionByQuizId(int quizId) throws SQLException {
+
+    public List<Question> getSearchQuestionByQuizId(int quizId) throws SQLException {
         List<Question> questions = new ArrayList<>();
         String sql = "select * from questions where id in (select QuestionId from Quiz_Has_Question where QuizId = ?)";
 
@@ -217,8 +218,8 @@ public class QuizDAO extends DBContext {
 
         ps.executeUpdate();
     }
-    
-      public List<AnswerDTO> getAnswersByQuestionId(int questionId) throws SQLException {
+
+    public List<AnswerDTO> getAnswersByQuestionId(int questionId) throws SQLException {
         List<AnswerDTO> answers = new ArrayList<>();
         String sql = "SELECT id, answer_detail, is_correct FROM answers WHERE id in "
                 + "(select answer_id from question_has_answer where question_id = ?)";
@@ -235,6 +236,77 @@ public class QuizDAO extends DBContext {
         return answers;
     }
 
+    public List<QuizDoneDTO> getDoneQuizzes(int userId, String subjectName, String quizName, int page, int recordsPerPage) throws SQLException {
+        List<QuizDoneDTO> doneQuizzes = new ArrayList<>();
+        int start = (page - 1) * recordsPerPage;
+        String sql = "SELECT q.Id, q.Name AS QuizName, q.Level, q.NumberQuestion, q.Duration, "
+                + "(stq.NumberCorrect * 100.0 / q.NumberQuestion) AS Score, s.Name AS SubjectName "
+                + "FROM Quizs q "
+                + "JOIN Student_Take_Quiz stq ON q.Id = stq.QuizId "
+                + "JOIN subjects s ON q.SubjectId = s.id "
+                + "WHERE stq.UserId = ? "
+                + "AND q.DeleteFlag != 0 "
+                + (subjectName != null && !subjectName.isEmpty() ? "AND s.Name LIKE ? " : "")
+                + (quizName != null && !quizName.isEmpty() ? "AND q.Name LIKE ? " : "")
+                + "ORDER BY q.Id "
+                + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+
+        ps = connection.prepareStatement(sql);
+        int paramIndex = 1;
+        ps.setInt(paramIndex++, userId);
+        if (subjectName != null && !subjectName.isEmpty()) {
+            ps.setString(paramIndex++, "%" + subjectName + "%");
+        }
+        if (quizName != null && !quizName.isEmpty()) {
+            ps.setString(paramIndex++, "%" + quizName + "%");
+        }
+        ps.setInt(paramIndex++, start);
+        ps.setInt(paramIndex++, recordsPerPage);
+
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            int id = rs.getInt("Id");
+            String quizNameRes = rs.getString("QuizName");
+            String level = rs.getString("Level");
+            int numberQuestion = rs.getInt("NumberQuestion");
+            int duration = rs.getInt("Duration");
+            double score = rs.getDouble("Score");
+            String subjectNameRes = rs.getString("SubjectName");
+
+            doneQuizzes.add(new QuizDoneDTO(id, quizNameRes, level, numberQuestion, duration, score, subjectNameRes));
+        }
+
+        return doneQuizzes;
+    }
+
+    public int getTotalDoneQuizzes(int userId, String subjectName, String quizName) throws SQLException {
+        String sql = "SELECT COUNT(*) AS Total "
+                + "FROM Quizs q "
+                + "JOIN Student_Take_Quiz stq ON q.Id = stq.QuizId "
+                + "JOIN subjects s ON q.SubjectId = s.id "
+                + "WHERE stq.UserId = ? "
+                + "AND q.DeleteFlag != 0 "
+                + (subjectName != null && !subjectName.isEmpty() ? "AND s.Name LIKE ? " : "")
+                + (quizName != null && !quizName.isEmpty() ? "AND q.Name LIKE ? " : "");
+
+        ps = connection.prepareStatement(sql);
+        int paramIndex = 1;
+        ps.setInt(paramIndex++, userId);
+        if (subjectName != null && !subjectName.isEmpty()) {
+            ps.setString(paramIndex++, "%" + subjectName + "%");
+        }
+        if (quizName != null && !quizName.isEmpty()) {
+            ps.setString(paramIndex++, "%" + quizName + "%");
+        }
+
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("Total");
+        }
+
+        return 0;
+    }
+
     public static void main(String[] args) {
         try {
             QuizDAO quizDAO = QuizDAO.getInstance();
@@ -242,8 +314,10 @@ public class QuizDAO extends DBContext {
             // Test deleteQuestionFromQuiz
             quizDAO.deleteQuestionFromQuiz(6, 9);
             System.out.println("Deleted Question ID: " + 6 + " from Quiz ID: " + 9);
+
         } catch (SQLException ex) {
-            Logger.getLogger(QuizDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QuizDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

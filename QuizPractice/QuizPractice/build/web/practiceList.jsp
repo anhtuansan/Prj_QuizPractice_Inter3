@@ -107,7 +107,7 @@
                                 <td>${practice.numberQuestion}</td>
                                 <td>${practice.numberCorrect/practice.numberQuestion*100}%</td>
                                 <td>${practice.duration}:00</td>
-                                <td><a href="#">View Detail</a></td>
+                                <td><a href="QuizReview?practiceId=${practice.id}">View Detail</a></td>
                             </tr>
                         </c:forEach>
                     </tbody>

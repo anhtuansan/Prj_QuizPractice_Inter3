@@ -9,8 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import context.DBContext;
+import dto.DimensionDTO;
 import dto.PracticeListDTO;
 import dto.QuestionDTO;
+import dto.SubjectPracticeDTO;
 import java.util.HashMap;
 import java.util.Map;
 import model.Answer;
@@ -139,6 +141,42 @@ public class PracticeDAO extends DBContext {
         } catch (SQLException ex) {
         }
         return lst;
+    }
+
+    public List<DimensionDTO> getListDimension() {
+        List<DimensionDTO> dimensions = new ArrayList<>();
+        try {
+            String query = "select DimensionId,DimensionName from Dimension";
+
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                dimensions.add(new DimensionDTO(id, name));
+            }
+        } catch (SQLException ex) {
+        }
+        return dimensions;
+    }
+    
+    public List<SubjectPracticeDTO> getListSubject() {
+        List<SubjectPracticeDTO> subjects = new ArrayList<>();
+        try {
+            String query = "select id, name from subjects";
+
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                subjects.add(new SubjectPracticeDTO(id, name));
+            }
+        } catch (SQLException ex) {
+        }
+        return subjects;
     }
 
     public List<String> getSubjectByDimension(String dimension) {

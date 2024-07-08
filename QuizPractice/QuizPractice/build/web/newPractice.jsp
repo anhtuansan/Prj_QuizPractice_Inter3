@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,9 +67,9 @@
                 var selectedSubjectId = $(this).val();
                 if (selectedSubjectId) {
                     $.ajax({
-                        url: 'lessonServlet', // ???ng d?n t?i servlet ho?c endpoint x? l� y�u c?u
+                        url: 'lessonServlet', // Đường dẫn tới servlet hoặc endpoint xử lý yêu cầu
                         type: 'GET',
-                        data: {subjectId: selectedSubjectId},
+                        data: {subject: selectedSubjectId},
                         success: function (data) {
                             $('#lesson').empty().append('<option selected disabled>Choose Lesson</option>');
                             $('#lesson').append('<option value="All">All</option>');
@@ -106,7 +108,7 @@
                     <select id="subject" name="subjectId" class="form-control">
                         <option selected disabled>Choose Subject</option>
                         <c:forEach var="subject" items="${listSubject}">
-                            <option value="${subject.id}">${subject.name}</option>
+                            <option value="${subject.name}">${subject.name}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -145,7 +147,7 @@
 
     <%@include file="/layout/footer.jsp" %>
 
-    <!-- side bar c� th? thu nh? khi m�n h�nh nh?  -->
+    <!-- side bar có thể thu nhỏ khi màn hình nhỏ  -->
     <script src="js/script.js"></script>
 </body>
 </html>

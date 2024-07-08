@@ -3,6 +3,8 @@ package controller;
 import dal.PracticeDAO;
 
 import dal.QuestionsDAO;
+import dto.DimensionDTO;
+import dto.SubjectPracticeDTO;
 import model.Practice;
 import model.Question;
 
@@ -26,8 +28,8 @@ public class NewPracticeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PracticeDAO practiceDAO = PracticeDAO.getInstance();
 
-        List<String> listDimension = practiceDAO.getListDimensionName();
-        List<String> listSubject = practiceDAO.getListSubjectName();
+       List<DimensionDTO> listDimension = practiceDAO.getListDimension();
+        List<SubjectPracticeDTO> listSubject = practiceDAO.getListSubject();
 
         request.setAttribute("listDimension", listDimension);
         request.setAttribute("listSubject", listSubject);
@@ -44,7 +46,7 @@ public class NewPracticeController extends HttpServlet {
 
         String dimension = request.getParameter("dimension");
         int subjectId = Integer.parseInt(request.getParameter("subjectId"));
-        String lessonName = request.getParameter("lessonName");
+        String lessonName = request.getParameter("lessonName"); 
         int numQuestions = Integer.parseInt(request.getParameter("questions"));
         int duration = Integer.parseInt(request.getParameter("duration"));
 
