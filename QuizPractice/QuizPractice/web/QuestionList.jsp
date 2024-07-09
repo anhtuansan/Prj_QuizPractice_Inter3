@@ -53,15 +53,34 @@
 
         <script>
             $(document).ready(function () {
-                function fetchLessons(subjectId) {
+                function fetchLessons(subjectId, targetSelect) {
                     $.ajax({
                         url: 'fetchLessons',
                         type: 'GET',
                         data: {subjectId: subjectId},
                         success: function (response) {
-                            $('#lessonId').html(response);
+                            $(targetSelect).html(response);
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("AJAX Error: ", status, error);  // Debug: Log any AJAX errors
                         }
                     });
+                }
+
+                $('#subjectId').change(function () {
+                    fetchLessons($(this).val(), '#lessonId');
+                });
+
+                $('#popupSubjectId').change(function () {
+                    fetchLessons($(this).val(), '#popupLessonId');
+                });
+
+                // Fetch lessons on page load if subject is selected
+                if ($('#subjectId').val() !== "") {
+                    fetchLessons($('#subjectId').val(), '#lessonId');
+                }
+                if ($('#popupSubjectId').val() !== "") {
+                    fetchLessons($('#popupSubjectId').val(), '#popupLessonId');
                 }
 
                 $('#searchForm').submit(function (event) {
@@ -117,15 +136,30 @@
                     });
                 });
 
-                $('#subjectId').change(function () {
-                    fetchLessons($(this).val());
-                });
+                $('#importQuestionForm').submit(function (event) {
+                    event.preventDefault();
 
-                // Fetch lessons on page load if subject is selected
-                if ($('#subjectId').val() !== "") {
-                    fetchLessons($('#subjectId').val());
-                }
+                    var formData = new FormData(this);
+
+                    $.ajax({
+                        url: 'importQuestions',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            toastr.success("Questions imported successfully");
+                            $('#addQuestionModal').modal('hide');
+                            $('#searchForm').submit();
+                        },
+                        error: function (xhr, status, error) {
+                            toastr.error("Error importing questions: " + xhr.responseText);
+                        }
+                    });
+                });
             });
+
+
         </script>
     </head>
 
@@ -171,7 +205,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="QuestionImport">Add Question</a>
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addQuestionModal">Add Question</a>
                     </div>
                 </div>
             </div>
@@ -286,51 +320,41 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="addQuestionModalLabel">Add Question</h4>
+                        <h4 class="modal-title" id="addQuestionModalLabel">Import Questions</h4>
                     </div>
                     <div class="modal-body">
-                        <form id="addQuestionForm">
+                        <form id="importQuestionForm" enctype="multipart/form-data">
                             <div class="form-group">
-                                <label for="detail">Detail</label>
-                                <input type="text" class="form-control" id="detail" name="detail" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="suggestion">Suggestion</label>
-                                <input type="text" class="form-control" id="suggestion" name="suggestion" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="subjectId">Subject</label>
-                                <select class="form-control" id="subjectId" name="subjectId" required>
+                                <label for="popupSubjectId">Subject</label>
+                                <select class="form-control" id="popupSubjectId" name="subjectId" required>
                                     <c:forEach var="subject" items="${subjects}">
                                         <option value="${subject.id}">${subject.name}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="lessonId">Lesson</label>
-                                <select class="form-control" id="lessonId" name="lessonId" required>
-                                    <c:forEach var="lesson" items="${lessons}">
-                                        <option value="${lesson.id}">${lesson.name}</option>
-                                    </c:forEach>
+                                <label for="popupLessonId">Lesson</label>
+                                <select class="form-control" id="popupLessonId" name="lessonId" required>
+                                    <option value="">Select Lesson</option>
+                                    <!-- Lessons will be dynamically loaded here -->
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="status">Status</label>
-                                <select class="form-control" id="status" name="status" required>
-                                    <option value="1">Active</option>
-                                    <option value="0">Deactive</option>
-                                </select>
+                                <label for="file">Import File</label>
+                                <input type="file" class="form-control" id="file" name="file" accept=".xlsx" required>
                             </div>
                             <div class="form-group">
-                                <label for="media">Media</label>
-                                <input type="text" class="form-control" id="media" name="media">
+                                <a href="path/to/sampleTemplate.xlsx" class="btn btn-link">Download Sample Template</a>
                             </div>
-                            <button type="submit" class="btn btn-primary">Add Question</button>
+                            <button type="submit" class="btn btn-primary">Import Questions</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
+
+
 
         <!-- side bar có thể thu nhỏ khi màn hình nhỏ  -->
         <script src="js/script.js"></script>
