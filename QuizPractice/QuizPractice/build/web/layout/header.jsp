@@ -169,8 +169,8 @@
                                 <c:when test="${sessionScope.user.roleId == 3 }">
                                 <li><a href="<%=request.getContextPath()%>/home">Home</a></li>
                                 <li><a href="<%=request.getContextPath()%>/questionList">Question Manager</a></li>
-                                <li><a href="<%=request.getContextPath()%>/newmenu2">Subject Manager</a></li>
-                                <li><a href="<%=request.getContextPath()%>/newmenu3">Quiz Manager</a></li>
+                                <li><a href="<%=request.getContextPath()%>/subjectManager">Subject Manager</a></li>
+                                <li><a href="<%=request.getContextPath()%>/quizManager">Quiz Manager</a></li>
                                 
                            
                             </c:when>

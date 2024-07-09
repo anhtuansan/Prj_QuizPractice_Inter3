@@ -2,6 +2,7 @@ package dal;
 
 import context.DBContext;
 import dto.AnswerDTO;
+import dto.QuizDTO;
 import dto.QuizDoneDTO;
 import dto.QuizLessonDTO;
 import dto.QuizSubjectDTO;
@@ -37,6 +38,127 @@ public class QuizDAO extends DBContext {
             }
         }
         return instance;
+    }
+
+    public List<QuizDTO> searchQuizzes(String subjectName, String quizName, int page, int recordsPerPage) throws SQLException {
+        List<QuizDTO> quizzes = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT q.id, q.name, s.name AS subject_name, q.level, q.numberQuestion, q.duration ");
+        query.append("FROM Quizs q ");
+        query.append("JOIN subjects s ON q.subjectId = s.id ");
+        query.append("WHERE q.DeleteFlag = 1 ");
+
+        if (subjectName != null && !subjectName.isEmpty()) {
+            query.append("AND s.name LIKE ? ");
+        }
+        if (quizName != null && !quizName.isEmpty()) {
+            query.append("AND q.name LIKE ? ");
+        }
+        query.append("ORDER BY q.id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+
+         ps = connection.prepareStatement(query.toString());
+        int index = 1;
+
+        if (subjectName != null && !subjectName.isEmpty()) {
+            ps.setString(index++, "%" + subjectName + "%");
+        }
+        if (quizName != null && !quizName.isEmpty()) {
+            ps.setString(index++, "%" + quizName + "%");
+        }
+        ps.setInt(index++, (page - 1) * recordsPerPage);
+        ps.setInt(index, recordsPerPage);
+
+         rs = ps.executeQuery();
+        while (rs.next()) {
+            quizzes.add(new QuizDTO(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("subject_name"),
+                rs.getString("level"),
+                rs.getInt("numberQuestion"),
+                rs.getInt("duration")
+            ));
+        }
+        return quizzes;
+    }
+
+    public int getTotalRecords(String subjectName, String quizName) throws SQLException {
+        StringBuilder query = new StringBuilder("SELECT COUNT(*) FROM Quizs q ");
+        query.append("JOIN subjects s ON q.subjectId = s.id ");
+        query.append("WHERE q.DeleteFlag = 1 ");
+
+        if (subjectName != null && !subjectName.isEmpty()) {
+            query.append("AND s.name LIKE ? ");
+        }
+        if (quizName != null && !quizName.isEmpty()) {
+            query.append("AND q.name LIKE ? ");
+        }
+
+         ps = connection.prepareStatement(query.toString());
+        int index = 1;
+
+        if (subjectName != null && !subjectName.isEmpty()) {
+            ps.setString(index++, "%" + subjectName + "%");
+        }
+        if (quizName != null && !quizName.isEmpty()) {
+            ps.setString(index++, "%" + quizName + "%");
+        }
+
+         rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+
+        return 0;
+    }
+
+    public boolean deleteQuiz(int quizId) throws SQLException {
+        String query = "UPDATE Quizs SET DeleteFlag = 0 WHERE id = ?";
+         ps = connection.prepareStatement(query);
+        ps.setInt(1, quizId);
+        return ps.executeUpdate() > 0;
+    }
+
+    public QuizDTO getQuizById(int quizId) throws SQLException {
+        String query = "SELECT q.id, q.name, q.level, q.numberQuestion, q.duration, q.subjectId, s.name AS subject_name FROM Quizs q JOIN subjects s ON q.subjectId = s.id WHERE q.id = ?";
+         ps = connection.prepareStatement(query);
+        ps.setInt(1, quizId);
+         rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return new QuizDTO(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("subject_name"),
+                rs.getString("level"),
+                rs.getInt("numberQuestion"),
+                rs.getInt("duration"),
+                    rs.getInt("subjectId")
+            );
+        }
+        return null;
+    }
+
+    public boolean updateQuiz(QuizDTO quiz) throws SQLException {
+        String query = "UPDATE Quizs SET name = ?, level = ?, numberQuestion = ?, duration = ?, subjectId = ? WHERE id = ?";
+         ps = connection.prepareStatement(query);
+        ps.setString(1, quiz.getName());
+        ps.setString(2, quiz.getLevel());
+        ps.setInt(3, quiz.getNumberQuestion());
+        ps.setInt(4, quiz.getDuration());
+        ps.setInt(5, quiz.getSubjectId());
+        ps.setInt(6, quiz.getId());
+        return ps.executeUpdate() > 0;
+    }
+
+    public boolean addQuiz(QuizDTO quiz) throws SQLException {
+        String query = "INSERT INTO Quizs (name, level, numberQuestion, duration, subjectId, DeleteFlag) VALUES (?, ?, ?, ?, ?, 1)";
+         ps = connection.prepareStatement(query);
+        ps.setString(1, quiz.getName());
+        ps.setString(2, quiz.getLevel());
+        ps.setInt(3, quiz.getNumberQuestion());
+        ps.setInt(4, quiz.getDuration());
+        ps.setInt(5, quiz.getSubjectId());
+        return ps.executeUpdate() > 0;
     }
 
     public List<QuizSubjectDTO> getSubjectsOfExpert(int creatorId) throws SQLException {
