@@ -46,6 +46,18 @@ public class SubjectDAO extends DBContext {
         return instance;
     }
 
+     public List<dto.Subject> getAllSubjects() throws SQLException {
+        List<dto.Subject> subjects = new ArrayList<>();
+        String query = "SELECT id, name FROM subjects";
+         ps = connection.prepareStatement(query);
+         rs = ps.executeQuery();
+
+        while (rs.next()) {
+            subjects.add(new dto.Subject(rs.getInt("id"), rs.getString("name")));
+        }
+
+        return subjects;
+    }
     public List<SubjectDTO> allSubjectsWithConditions(String searchParam, String sort) {
         List<SubjectDTO> subjects = new ArrayList<>();
         List<Object> list = new ArrayList<>();

@@ -34,6 +34,21 @@ public class LessonDAO extends DBContext {
         return instance;
     }
 
+      public List<dto.Lesson> getLessonsBySubjectId(String subjectId) throws SQLException {
+        List<dto.Lesson> lessons = new ArrayList<>();
+        String query = "SELECT l.id, l.name FROM lessons l " +
+                       "JOIN subject_has_lesson shl ON l.id = shl.lesson_id " +
+                       "WHERE shl.subject_id = ?";
+         ps = connection.prepareStatement(query);
+        ps.setString(1, subjectId);
+         rs = ps.executeQuery();
+
+        while (rs.next()) {
+            lessons.add(new dto.Lesson(rs.getInt("id"), rs.getString("name")));
+        }
+
+        return lessons;
+    }
     public List<Lesson> getLessonsBySubjectWithPaging(int subjectId, int page, int recordPerPage, String name, Integer status, String type) {
         List<Lesson> lessons = new ArrayList<>();
 
