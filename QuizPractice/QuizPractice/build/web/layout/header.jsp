@@ -141,7 +141,7 @@
                             <li><a href="<%=request.getContextPath()%>/subject">Subject</a></li>
                             <li><a href="<%=request.getContextPath()%>/myRegister">My Register</a></li>
                             <li><a href="<%=request.getContextPath()%>/myregister">Register Subject</a></li>
-                            <li><a href="<%=request.getContextPath()%>/myregister">Simulate Exam</a></li> 
+                            <li><a href="<%=request.getContextPath()%>/quizDoneList">Simulate Exam</a></li> 
                             <li><a href="<%=request.getContextPath()%>/practiceList">Practice List</a></li>
                             </c:when>
                             

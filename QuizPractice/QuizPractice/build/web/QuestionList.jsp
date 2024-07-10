@@ -304,7 +304,7 @@
                         <h4 class="modal-title" id="editQuestionModalLabel">Edit Question</h4>
                     </div>
                     <div class="modal-body">
-                        <!-- Form content loaded via AJAX -->
+                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -344,7 +344,7 @@
                                 <input type="file" class="form-control" id="file" name="file" accept=".xlsx" required>
                             </div>
                             <div class="form-group">
-                                <a href="path/to/sampleTemplate.xlsx" class="btn btn-link">Download Sample Template</a>
+                                <a href="./excel/test.xlsx" class="btn btn-link">Download Sample Template</a>
                             </div>
                             <button type="submit" class="btn btn-primary">Import Questions</button>
                         </form>

@@ -5,19 +5,16 @@
         <meta charset="UTF-8">
         <title>Quiz Review</title>
 
-         font awesome cdn link 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 
-         custom css file link 
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/popup.css">
 
-         Bootstrap file link 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-         Custom CSS to make the footer fixed 
+
         <style>
             body {
                 padding: 0;
@@ -119,7 +116,7 @@
                 <h3 class="col-md-3">Lesson: ${lessonName}</h3>
                 <div class="col-md-6"></div>
                 <h4 class="col-md-3 ">Question ${currentQuestion} of ${totalQuestions}</h4>
-                
+
                 <h4 class="col-md-2 text-primary"> ${result} point</h4>
             </div>
             <div class="panel panel-default">
@@ -166,8 +163,8 @@
         </form>
 
         <%@ include file="/layout/footer.jsp" %>
-        
-         Review Progress Modal 
+
+        Review Progress Modal 
         <div class="modal fade" id="reviewProgressModal" tabindex="-1" role="dialog" aria-labelledby="reviewProgressModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -187,13 +184,13 @@
                         </div>
                         <hr>
                         <div id="questionsList">
-                             Danh sách câu h?i s? ???c c?p nh?t t?i ?ây 
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-         Peek Answer Modal 
+        Peek Answer Modal 
         <div class="modal fade" id="peekAnswerModal" tabindex="-1" role="dialog" aria-labelledby="peekAnswerModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -214,7 +211,7 @@
             </div>
         </div>
 
-         side bar có th? thu nh? khi màn hình nh? 
+
         <script src="js/script.js"></script>
         <script>
                                     function navigateQuestion(practiceId, questionNumber, action) {
@@ -245,7 +242,7 @@
 
                                             // Create an anchor tag for navigation
                                             const link = document.createElement('a');
-                                            link.href = `QuizReview?practiceId=${practiceId}&questionNumber=`+question.questionNumber;
+                                            link.href = `QuizReview?practiceId=${practiceId}&questionNumber=` + question.questionNumber;
                                             link.className = 'btn btn-primary col-md-12';
                                             link.textContent = question.questionNumber;
 
@@ -300,9 +297,15 @@
                                         });
                                     }
 
+                                    $(document).ready(function () {
+                                        const urlParams = new URLSearchParams(window.location.search);
+                                        if (urlParams.get('finished') === 'true') {
+                                            alert('Quiz has finished');
+                                        }
+                                    });
+
         </script>
     </body>
 </html>
-        
-        
- 
+
+

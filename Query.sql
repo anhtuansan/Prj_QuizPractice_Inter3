@@ -1,4 +1,32 @@
 ﻿
+---------------------30
+ 
+ select * from questions;
+ select * from subjects
+
+ select * from Lesson_Has_Question
+
+ select * from Quizs
+ select * from Quiz_Has_Question
+ select * from questions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -216,7 +244,6 @@ go
 insert into question_has_answer values(4,1008)
 go
 insert into question_has_answer values(4,1009)
-
 
 select * from subjects;
 select * from Practices;

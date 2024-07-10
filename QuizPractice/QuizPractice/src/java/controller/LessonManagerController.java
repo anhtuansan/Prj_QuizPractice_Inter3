@@ -82,12 +82,12 @@ public class LessonManagerController extends HttpServlet {
         request.setAttribute("searchName", name);
         request.setAttribute("searchType", type);
         request.setAttribute("searchStatus", status);
-        
+
         // Get messages from session and set them as request attributes
         String successMessage = (String) session.getAttribute("successMessage");
         String errorMessage = (String) session.getAttribute("errorMessage");
 
-         if (successMessage != null) {
+        if (successMessage != null) {
             request.setAttribute("successMessage", successMessage);
             session.removeAttribute("successMessage");
         }
@@ -115,11 +115,22 @@ public class LessonManagerController extends HttpServlet {
             int subjectId = Integer.parseInt(request.getParameter("subjectId"));
             String type = request.getParameter("type");
 
+            // Print out the values for debugging
+            System.out.println("Add Lesson Form Data:");
+            System.out.println("Name: " + name);
+            System.out.println("Content: " + content);
+            System.out.println("Media: " + media);
+            System.out.println("Lesson Index: " + lessonIndex);
+            System.out.println("Subject ID: " + subjectId);
+            System.out.println("Type: " + type);
+
             LessonDAO lessonDAO = LessonDAO.getInstance();
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("user");
+            
             lessonDAO.insertLesson(name, content, media, lessonIndex, type, user.getUserId());
             int lessonId = lessonDAO.getIdAddCurrent();
+            System.out.println(lessonId + "-------------------");
             boolean s = lessonDAO.insertSubjectLesson(subjectId, lessonId);
 
             request.setAttribute("subjectId", subjectId);
@@ -154,7 +165,7 @@ public class LessonManagerController extends HttpServlet {
             boolean s = lessonDAO.updateLesson(name, content, media, lessonIndex, type, id);
 
             request.setAttribute("subjectId", subjectId);
-           
+
             if (s) {
                 session.setAttribute("successMessage", "Lesson edited successfully.");
             } else {
@@ -173,12 +184,12 @@ public class LessonManagerController extends HttpServlet {
             boolean s = lessonDAO.updateStatus(status, lessonId);
             request.setAttribute("subjectId", subjectId);
             HttpSession session = request.getSession();
-             if (s) {
+            if (s) {
                 session.setAttribute("successMessage", "Lesson edited successfully.");
             } else {
                 session.setAttribute("errorMessage", "Failed to edit the Lesson.");
             }
-            
+
             String path = "lessonManager?subjectId=" + subjectId;
             response.sendRedirect(path);
         }

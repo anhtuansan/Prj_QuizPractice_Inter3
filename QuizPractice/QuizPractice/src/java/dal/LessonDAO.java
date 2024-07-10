@@ -157,7 +157,7 @@ public class LessonDAO extends DBContext {
 
     public boolean insertLesson(String name, String content, String media, int lessonIndex, String Type, int userId) {
         boolean updated = false;
-        String query = "insert into lessons values(?,?,null,GETDATE(),1,?,?,?,?)";
+        String query = "insert into lessons values(?,?,null,GETDATE(),1,?,?,?,?,null)";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, name);
@@ -302,10 +302,10 @@ public class LessonDAO extends DBContext {
 
     public static void main(String[] args) {
         LessonDAO lessonDAO = new LessonDAO();
-        System.out.println(lessonDAO.getLessonsBySubjectWithPaging(2, 1, 5, null, null, "quiz"));
-        System.out.println(lessonDAO.getCount(2, "", null, ""));
-        //System.out.println(lessonDAO.insertLesson("fdsafsda", "fdsafdas", "fdasf", 3, "content", 1028));
+//        System.out.println(lessonDAO.getLessonsBySubjectWithPaging(2, 1, 5, null, null, "quiz"));
+//        System.out.println(lessonDAO.getCount(2, "", null, ""));
+        System.out.println(lessonDAO.insertLesson("q4", "fdsafdas", "fdasf", 3, "content", 1028));
         System.out.println(lessonDAO.getIdAddCurrent());
-        System.out.println(lessonDAO.getLessonById(1));
+        //System.out.println(lessonDAO.getLessonById(1));
     }
 }

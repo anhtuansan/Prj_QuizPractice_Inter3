@@ -4,7 +4,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="X-UA-Compatible="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Quiz Manager</title>
 
@@ -135,7 +135,7 @@
                         </div>
                     </form>
                     <div class="col-md-4 text-right">
-                        <a href="#" data-toggle="modal" data-target="#addQuizModal">Add Quiz</a>
+                        <a href="AddQuiz">Add Quiz</a>
                     </div>
                 </div>
             </div>
@@ -150,6 +150,8 @@
                             <th>Level</th>
                             <th>#Questions</th>
                             <th>Duration</th>
+                            <th>Pass Rate</th>
+                            <th>Type</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -162,6 +164,8 @@
                                 <td>${quiz.level}</td>
                                 <td>${quiz.numberQuestion}</td>
                                 <td>${quiz.duration}</td>
+                                <td>50%</td>
+                                <td>Multiple Choice</td>
                                 <td class="row">
                                     <button class="btn btn-info edit-quiz col-md-3" data-id="${quiz.id}">Edit</button>
                                     <span class="col-md-1"></span>

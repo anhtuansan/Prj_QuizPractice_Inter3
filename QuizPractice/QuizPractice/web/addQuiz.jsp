@@ -58,7 +58,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="subject">Subject:</label>
-                            <select class="form-control" id="subject" name="subject" <c:if test="${not empty param.quizId}">disabled</c:if>>
+                            <select class="form-control" id="subject" name="subject" <c:if test="${not empty param.quizId}">disabled</c:if> required>
                                 <option value="">Select Subject</option>
                                 <c:forEach var="subject" items="${subjects}">
                                     <option value="${subject.id}" <c:if test="${subject.id == param.subject}">selected</c:if>>${subject.name}</option>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="form-group">
                             <label for="lesson">Lesson:</label>
-                            <select class="form-control" id="lesson" name="lesson" <c:if test="${param.subject != null}">enabled</c:if> <c:if test="${not empty param.quizId}">disabled</c:if>>
+                            <select class="form-control" id="lesson" name="lesson" <c:if test="${param.subject != null}">enabled</c:if> <c:if test="${not empty param.quizId}">disabled</c:if> required>
                                 <option value="">Select Lesson</option>
                                 <c:if test="${param.lesson != null}">
                                     <c:forEach var="lesson" items="${lessons}">
